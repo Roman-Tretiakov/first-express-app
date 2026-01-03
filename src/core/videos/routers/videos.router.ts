@@ -106,5 +106,5 @@ videosRouter
         }]));
     }
     db.videos.splice(id - 1, 1);
-    res.status(HttpStatus.Ok).send(`Video with id: ${id} was deleted successfully.`);
+    res.status(HttpStatus.NoContent).send(`Video with id: ${id} was deleted successfully.`);
 });

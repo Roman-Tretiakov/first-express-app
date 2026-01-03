@@ -3,6 +3,7 @@ import {HttpStatus} from "./core/enums/http-status";
 import {EndpointList} from "./core/constants/endpoint-list";
 import {videosRouter} from "./core/videos/routers/videos.router";
 import {testingRouter} from "./core/videos/routers/testing.router";
+import { setupSwagger } from './core/swagger/setup-swagger';
 
 export const setupApp = (app: Express) => {
     app.use(express.json()); // middleware для парсинга JSON в теле запроса
@@ -13,8 +14,10 @@ export const setupApp = (app: Express) => {
     });
 
     // routers
-    app.use("/videos", videosRouter);
-    app.use("/testing", testingRouter);
+    app.use("/api/videos", videosRouter);
+    app.use("/api/testing", testingRouter);
+
+    setupSwagger(app);
 };
 
 
