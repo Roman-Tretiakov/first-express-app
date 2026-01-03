@@ -2,13 +2,18 @@
   "name": "first-express-app",
   "version": "1.0.0",
   "description": "1 sprint",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "watch": "tsc -w",
     "dev": "nodemon --inspect dist/index.js",
+    "start": "node dist/index.js",
     "jest": "jest -i",
     "lint": "eslint --fix .",
     "format": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [],
   "author": "RomanT",
