@@ -2,7 +2,7 @@ import express from "express";
 import { setupApp } from "./setup-app";
 
 // создание приложения
-export const app = express();
+const app = express();
 setupApp(app);
 
 // порт приложения
