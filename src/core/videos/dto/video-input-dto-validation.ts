@@ -53,12 +53,11 @@ export const updateVideoInputDtoValidation = (data: UpdateVideoInputModel): Vali
     const errors: ValidationError[] = [];
     if (createVideoInputDtoValidation(data).length > 0) {
         errors.push(...createVideoInputDtoValidation(data));
-        return errors;
     } else {
         if (!data.canBeDownloaded)
-            errors.push({field: 'canBeDownloaded', message: ErrorNames.CAN_BE_DOWNLOADED_MISSING_ERROR});
+            errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_MISSING_ERROR, field: 'canBeDownloaded'});
         else if (Object.prototype.toString.call(data.canBeDownloaded) !== '[object Boolean]') {
-            errors.push({field: 'canBeDownloaded', message: ErrorNames.CAN_BE_DOWNLOADED_TYPE_ERROR});
+            errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_TYPE_ERROR, field: 'canBeDownloaded'});
         }
 
         if (data.minAgeRestriction === undefined || Number.isNaN(data.minAgeRestriction))
