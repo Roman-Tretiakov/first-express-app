@@ -86,7 +86,7 @@ videosRouter
         }
         const newVideo = Object.assign(video, req.body);
         db.videos[id - 1] = newVideo;
-        res.status(HttpStatus.Ok).send(newVideo);
+        res.status(HttpStatus.NoContent).send(newVideo);
     }
 })
 

@@ -49,7 +49,7 @@ describe('Video API body validation test', () => {
         const updateResponse = await request(app)
             .put(EndpointList.ALL_VIDEOS + "/" + createResponse.body.id)
             .send({...validUpdateDataSet})
-            .expect(HttpStatus.Ok);
+            .expect(HttpStatus.NoContent);
         expect(updateResponse.body.errorMessages).toBeUndefined();
     });
 

@@ -109,15 +109,10 @@ describe('Video API tests', () => {
             ...updatedVideo
         };
 
-        const updateResponse = await request(app)
+        await request(app)
             .put(EndpointList.ALL_VIDEOS + "/" + createResponse.body.id)
             .send({...newData})
-            .expect(HttpStatus.Ok);
-
-        expect(updateResponse.body).toEqual({
-            ...createResponse.body,
-            ...newData
-        });
+            .expect(HttpStatus.NoContent);
     });
 
     test("should delete video by id; DELETE /video/:id", async () => {
