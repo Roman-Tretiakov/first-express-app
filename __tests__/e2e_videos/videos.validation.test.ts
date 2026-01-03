@@ -74,7 +74,7 @@ describe('Video API body validation test', () => {
             .post(EndpointList.ALL_VIDEOS)
             .send({
                 ...validCreateDataSet,
-                title: "a",
+                title: "a"
             })
             .expect(HttpStatus.BadRequest);
         const errorMessages: string[] = createResponse.body.errorMessages?.map((err: {field: string, message: string}) => err.message) ?? [];
@@ -168,12 +168,14 @@ describe('Video API body validation test', () => {
             .put(EndpointList.ALL_VIDEOS + "/" + createResponse.body.id)
             .send({
                 ...validUpdateDataSet,
+                title: null,
+                canBeDownloaded: "true",
                 publicationDate: "01/2024",
             })
             .expect(HttpStatus.BadRequest);
         const errorMessages: string[] = updateResponse.body.errorMessages?.map((err: {field: string, message: string}) => err.message) ?? [];
 
-        expect(errorMessages).toHaveLength(1);
-        expect(errorMessages).toContain(ErrorNames.PUBLICATION_DATE_FORMAT_ERROR);
+        expect(errorMessages).toHaveLength(3);
+        expect(errorMessages).toEqual(expect.arrayContaining([ErrorNames.PUBLICATION_DATE_FORMAT_ERROR, ErrorNames.TITLE_MISSING_ERROR, ErrorNames.CAN_BE_DOWNLOADED_TYPE_ERROR]));
     });
 });

@@ -51,37 +51,38 @@ export const createVideoInputDtoValidation = (data: CreateVideoInputModel): Vali
 
 export const updateVideoInputDtoValidation = (data: UpdateVideoInputModel): ValidationError[] => {
     const errors: ValidationError[] = [];
-    if (createVideoInputDtoValidation(data).length > 0) {
-        errors.push(...createVideoInputDtoValidation(data));
-    } else {
-        if (!data.canBeDownloaded)
-            errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_MISSING_ERROR, field: 'canBeDownloaded'});
-        else if (Object.prototype.toString.call(data.canBeDownloaded) !== '[object Boolean]') {
-            errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_TYPE_ERROR, field: 'canBeDownloaded'});
-        }
+    const createErrors: ValidationError[] = createVideoInputDtoValidation(data);
 
-        if (data.minAgeRestriction === undefined || Number.isNaN(data.minAgeRestriction))
-            errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_MISSING_ERROR});
-        else {
-            if (Object.prototype.toString.call(data.minAgeRestriction) !== '[object Number]'
+    if (createErrors.length > 0)
+        errors.push(...createErrors);
+    if (!data.canBeDownloaded)
+        errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_MISSING_ERROR, field: 'canBeDownloaded'});
+    else if (Object.prototype.toString.call(data.canBeDownloaded) !== '[object Boolean]') {
+        errors.push({message: ErrorNames.CAN_BE_DOWNLOADED_TYPE_ERROR, field: 'canBeDownloaded'});
+    }
+
+    if (data.minAgeRestriction === undefined || Number.isNaN(data.minAgeRestriction))
+        errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_MISSING_ERROR});
+    else {
+        if (Object.prototype.toString.call(data.minAgeRestriction) !== '[object Number]'
             && data.minAgeRestriction !== null)
-                errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_TYPE_ERROR});
-            else if (data.minAgeRestriction !== null) {
-                if (data.minAgeRestriction < 1 || data.minAgeRestriction > 18) {
-                    errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_RANGE_ERROR});
-                }
+            errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_TYPE_ERROR});
+        else if (data.minAgeRestriction !== null) {
+            if (data.minAgeRestriction < 1 || data.minAgeRestriction > 18) {
+                errors.push({field: 'minAgeRestriction', message: ErrorNames.MIN_AGE_RESTRICTION_RANGE_ERROR});
             }
         }
-
-        if (!data.publicationDate)
-            errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_MISSING_ERROR})
-        else if (Object.prototype.toString.call(data.publicationDate) !== '[object String]')
-            errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_TYPE_ERROR});
-        else {
-            const date = new Date(data.publicationDate);
-            if (isNaN(date.getTime()))
-                errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_FORMAT_ERROR});
-        }
     }
+
+    if (!data.publicationDate)
+        errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_MISSING_ERROR})
+    else if (Object.prototype.toString.call(data.publicationDate) !== '[object String]')
+        errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_TYPE_ERROR});
+    else {
+        const date = new Date(data.publicationDate);
+        if (isNaN(date.getTime()))
+            errors.push({field: 'publicationDate', message: ErrorNames.PUBLICATION_DATE_FORMAT_ERROR});
+    }
+
     return errors;
 }
