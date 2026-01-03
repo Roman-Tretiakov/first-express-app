@@ -14,12 +14,12 @@ const swaggerOptions = {
             version: '1.0.0',
             description: 'video API',
         },
-        // servers: [
-        //     {
-        //         url: 'https://first-express-app-two.vercel.app',
-        //         description: 'Production server',
-        //     },
-        // ],
+        servers: [
+            {
+                url: 'https://first-express-app-two.vercel.app',
+                description: 'Production server',
+            },
+        ],
     },
     apis: ['./src/core/videos/docs/*.swagger.yml', './src/**/*.swagger.yml'],
 };
