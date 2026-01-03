@@ -7,16 +7,16 @@ export const createVideoInputDtoValidation = (data: CreateVideoInputModel): Vali
     const errors: ValidationError[] = [];
 
     if (!data.title)
-        errors.push({field: 'title', message: ErrorNames.TITLE_MISSING_ERROR})
+        errors.push({message: ErrorNames.TITLE_MISSING_ERROR, field: 'title'})
     else {
         if (Object.prototype.toString.call(data.title) !== '[object String]')
-            errors.push({field: 'title', message: ErrorNames.TITLE_TYPE_ERROR})
+            errors.push({message: ErrorNames.TITLE_TYPE_ERROR, field: 'title'})
         else if (data.title.trim().length < 2 || data.title.trim().length > 40)
-            errors.push({field: 'title', message: ErrorNames.TITLE_LENGTH_ERROR});
+            errors.push({message: ErrorNames.TITLE_LENGTH_ERROR, field: 'title'});
     }
 
     if (!data.author)
-        errors.push({field: 'author', message: ErrorNames.AUTHOR_MISSING_ERROR});
+        errors.push({message: ErrorNames.AUTHOR_MISSING_ERROR, field: 'author'});
     else {
         if (Object.prototype.toString.call(data.author) !== '[object String]')
             errors.push({field: 'author', message: ErrorNames.AUTHOR_TYPE_ERROR});
