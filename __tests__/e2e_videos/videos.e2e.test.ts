@@ -24,7 +24,7 @@ describe('Video API tests', () => {
     };
 
     beforeAll(async () => {
-        const res = await request(app).delete("/testing" + EndpointList.TEST_DELETE_ALL_VIDEOS);
+        const res = await request(app).delete("/api/testing" + EndpointList.TEST_DELETE_ALL_VIDEOS);
         expect(res.status).toBe(HttpStatus.NoContent)
         expect(res.body).toEqual({});
     });
@@ -134,7 +134,7 @@ describe('Video API tests', () => {
 
         await request(app)
             .delete(EndpointList.ALL_VIDEOS + "/" + id)
-            .expect(HttpStatus.Ok);
+            .expect(HttpStatus.NoContent);
 
         await request(app)
             .get(EndpointList.ALL_VIDEOS + "/" + id)
