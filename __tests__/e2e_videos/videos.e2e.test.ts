@@ -34,7 +34,7 @@ describe('Video API tests', () => {
             ...createdVideo
         };
         await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send(newVideo)
             .expect(HttpStatus.Created);
     });
@@ -53,17 +53,17 @@ describe('Video API tests', () => {
         };
 
         await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send({...createdVideo2})
             .expect(HttpStatus.Created);
 
         await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send({...createdVideo3})
             .expect(HttpStatus.Created);
 
         const videoListResponse = await request(app)
-            .get(EndpointList.ALL_VIDEOS)
+            .get(EndpointList.VIDEOS_PATH)
             .expect(HttpStatus.Ok);
 
         expect(videoListResponse.body).toBeInstanceOf(Array);
@@ -78,12 +78,12 @@ describe('Video API tests', () => {
         };
 
         const createResponse = await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send({...createdVideo4})
             .expect(HttpStatus.Created);
 
         const getResponse = await request(app)
-            .get(EndpointList.ALL_VIDEOS + "/" + createResponse.body.id)
+            .get(EndpointList.VIDEOS_PATH + "/" + createResponse.body.id)
             .expect(HttpStatus.Ok);
 
         expect(getResponse.body).toEqual({
@@ -101,7 +101,7 @@ describe('Video API tests', () => {
         };
 
         const createResponse = await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send({...createdVideo5})
             .expect(HttpStatus.Created);
 
@@ -110,7 +110,7 @@ describe('Video API tests', () => {
         };
 
         await request(app)
-            .put(EndpointList.ALL_VIDEOS + "/" + createResponse.body.id)
+            .put(EndpointList.VIDEOS_PATH + "/" + createResponse.body.id)
             .send({...newData})
             .expect(HttpStatus.NoContent);
     });
@@ -122,17 +122,17 @@ describe('Video API tests', () => {
             availableResolutions: ["P144", "P1440", "P2160"]
         };
         const createResponse = await request(app)
-            .post(EndpointList.ALL_VIDEOS)
+            .post(EndpointList.VIDEOS_PATH)
             .send({...createdVideo6})
             .expect(HttpStatus.Created);
         const id: number = createResponse.body.id;
 
         await request(app)
-            .delete(EndpointList.ALL_VIDEOS + "/" + id)
+            .delete(EndpointList.VIDEOS_PATH + "/" + id)
             .expect(HttpStatus.NoContent);
 
         await request(app)
-            .get(EndpointList.ALL_VIDEOS + "/" + id)
+            .get(EndpointList.VIDEOS_PATH + "/" + id)
             .expect(HttpStatus.NotFound);
     })
 });
