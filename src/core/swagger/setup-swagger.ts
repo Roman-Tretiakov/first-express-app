@@ -12,8 +12,8 @@ const swaggerOptions = {
             description: 'video API'
         },
         tags: [
-            { name: 'Testing', description: 'API for clearing the database' },
-            { name: 'Videos', description: 'API for managing videos' }
+            {name: 'Testing', description: 'API for clearing the database'},
+            {name: 'Videos', description: 'API for managing videos'}
         ],
         components: {
             securitySchemes: {
@@ -35,9 +35,5 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 export const setupSwagger = (app: Express) => {
-    app.get('/api-json', (req, res) => {
-        res.json(swaggerSpec);
-    });
-
     app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
